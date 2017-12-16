@@ -4,22 +4,24 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading;
-using System.Xml.Linq;
+using ToothAndTailReplayHelper.Model;
 
 namespace ToothAndTailReplayHelper.Internal
 {
-    internal class ReplayListener : IDisposable
+    internal sealed class ReplaySaver : IDisposable
     {
-        private const string PlayerIdentityNodeName  = "Identity";
-        private const string PlayerNameAttributeName = "Name";
+        private const string FileFilter = "LastReplay.xml";
 
+        IFilenameGenerator filenameGenerator;
         FileSystemWatcher fileSystemWatcher;
         HashSet<string> handledFileHashes = new HashSet<string>();
         SemaphoreSlim fileModificationSemaphore = new SemaphoreSlim(1, 1);
 
-        public ReplayListener(string directoryPath, string fileFilter = "LastReplay.xml")
+        public ReplaySaver(ISettings settings, IFilenameGenerator filenameGenerator)
         {
-            fileSystemWatcher = new FileSystemWatcher(directoryPath, fileFilter);
+            this.filenameGenerator = filenameGenerator;
+
+            fileSystemWatcher = new FileSystemWatcher(settings.ReplayDirectoryPath, FileFilter);
             fileSystemWatcher.Changed += FileModified;
             fileSystemWatcher.EnableRaisingEvents = true;
         }
@@ -31,6 +33,9 @@ namespace ToothAndTailReplayHelper.Internal
 
         private async void FileModified(object sender, FileSystemEventArgs e)
         {
+            // This semaphore is to handle a known issue with FileSystemWatcher where
+            // it can raise multiple events for the same create action. We only want
+            // to copy the file once.
             await fileModificationSemaphore.WaitAsync().ConfigureAwait(false);
 
             try
@@ -59,11 +64,13 @@ namespace ToothAndTailReplayHelper.Internal
                 }
                 catch
                 {
-                    // Errors can occur if TnT is still writing the replay file. Wait until it is finished.
+                    // Errors can occur if TnT is still writing the replay file.
+                    // Suppress the exception because another FileSystemWatcher event
+                    // should be raised once it is finished.
                     return;
                 }
 
-                var newFilename = GetReplayFilename(new FileInfo(e.FullPath));
+                var newFilename = filenameGenerator.GenerateFilename(new FileInfo(e.FullPath));
 
                 if (string.IsNullOrEmpty(newFilename) || File.Exists(newFilename))
                 {
@@ -76,26 +83,6 @@ namespace ToothAndTailReplayHelper.Internal
             {
                 fileModificationSemaphore.Release();
             }
-        }
-
-        private string GetReplayFilename(FileInfo replayFile)
-        {
-            if (!replayFile.Exists)
-            {
-                return null;
-            }
-
-            var replayXml = XDocument.Load(replayFile.FullName);
-
-            var datePart = DateTime.Now.ToString("yyyyMMddTHHmm");
-            var namePart = string.Join(" vs ", replayXml.Descendants(PlayerIdentityNodeName).Select(node => node.Attribute(PlayerNameAttributeName).Value));
-
-            foreach (var c in Path.GetInvalidFileNameChars())
-            {
-                namePart = namePart.Replace(c, '_');
-            }
-
-            return $"{datePart} {namePart}.xml";
         }
     }
 }
