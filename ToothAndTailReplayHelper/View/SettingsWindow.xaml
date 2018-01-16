@@ -13,7 +13,7 @@
                 <Setter Property="Width" Value="60"/>
             </Style>
             <Style TargetType="{x:Type TextBox}">
-                <Setter Property="Height" Value="30"/>
+                <Setter Property="Height" Value="25"/>
             </Style>
             <Style TargetType="{x:Type Label}">
                 <Setter Property="HorizontalAlignment" Value="Right"/>
@@ -30,6 +30,7 @@
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition Height="25"/>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
@@ -40,10 +41,14 @@
         <Label Grid.Column="0" Grid.Row="1">Replay folder</Label>
         <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding ReplayDirectoryPath}"/>
 
-        <Label Grid.Column="0" Grid.Row="2">Replay naming pattern</Label>
-        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding FileNamingPattern}"/>
+        <TextBlock Grid.Column="1" Grid.Row="2">
+            <Hyperlink Command="{Binding OpenReplayFolderCommand}">Open replay folder</Hyperlink>
+        </TextBlock>
 
-        <StackPanel Grid.Column="1" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+        <Label Grid.Column="0" Grid.Row="3">Replay naming pattern</Label>
+        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding FileNamingPattern}"/>
+
+        <StackPanel Grid.Column="1" Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Command="{Binding SaveCommand}" Content="{x:Static resx:Resources.Save}"/>
             <Button Command="{Binding CancelCommand}" Content="{x:Static resx:Resources.Cancel}"/>
         </StackPanel>

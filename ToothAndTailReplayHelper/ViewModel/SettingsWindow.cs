@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows.Input;
+using ToothAndTailReplayHelper.Command;
 using ToothAndTailReplayHelper.Model;
 
 namespace ToothAndTailReplayHelper.ViewModel
@@ -44,6 +45,8 @@ namespace ToothAndTailReplayHelper.ViewModel
 
         public ICommand CancelCommand { get; }
 
+        public ICommand OpenReplayFolderCommand { get; }
+
         public bool IsValid
         {
             get => true;
@@ -54,12 +57,13 @@ namespace ToothAndTailReplayHelper.ViewModel
         private string fileNamingPattern;
         private string playerUsername;
 
-        public SettingsWindow(ISettings settings)
+        public SettingsWindow(ISettings settings, IOpenReplayFolderCommand openReplayFolderCommand)
         {
             this.settings = settings;
 
             SaveCommand = new Command.Command(_ => IsValid, _ => Save());
             CancelCommand = new Command.Command(_ => true, _ => Cancel());
+            OpenReplayFolderCommand = openReplayFolderCommand;
 
             LoadPropertiesFromSettings();
         }
