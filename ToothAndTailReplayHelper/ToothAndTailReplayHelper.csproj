@@ -69,7 +69,9 @@
     </ApplicationDefinition>
     <Compile Include="Command\Command.cs" />
     <Compile Include="Command\ExitApplicationCommand.cs" />
+    <Compile Include="Command\IOpenDateFormatHelpCommand.cs" />
     <Compile Include="Command\IOpenReplayFolderCommand.cs" />
+    <Compile Include="Command\OpenDateFormatHelpCommand.cs" />
     <Compile Include="Command\OpenReplayFolderCommand.cs" />
     <Compile Include="Command\OpenSettingsCommand.cs" />
     <Compile Include="Helper\ReplaySaver.cs" />

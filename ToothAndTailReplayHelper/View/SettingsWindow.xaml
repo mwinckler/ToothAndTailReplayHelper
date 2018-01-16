@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:resx="clr-namespace:ToothAndTailReplayHelper.Properties"
         mc:Ignorable="d"
-        Title="Tooth and Tail Replay Helper - Settings" Height="200" Width="400">
+        Title="Tooth and Tail Replay Helper - Settings" Height="225" Width="400">
     <Window.Resources>
         <ResourceDictionary>
             <Style TargetType="{x:Type Button}">
@@ -32,6 +32,7 @@
             <RowDefinition/>
             <RowDefinition Height="25"/>
             <RowDefinition/>
+            <RowDefinition Height="25"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
@@ -48,7 +49,12 @@
         <Label Grid.Column="0" Grid.Row="3">Replay naming pattern</Label>
         <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding FileNamingPattern}"/>
 
-        <StackPanel Grid.Column="1" Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
+        <TextBlock Grid.Column="1" Grid.Row="4" TextWrapping="Wrap">
+            <Run>Can include </Run>
+            <Hyperlink Command="{Binding OpenDateFormatHelpCommand}">.NET date format strings</Hyperlink>
+        </TextBlock>
+
+        <StackPanel Grid.Column="1" Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Command="{Binding SaveCommand}" Content="{x:Static resx:Resources.Save}"/>
             <Button Command="{Binding CancelCommand}" Content="{x:Static resx:Resources.Cancel}"/>
         </StackPanel>
