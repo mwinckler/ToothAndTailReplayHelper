@@ -47,6 +47,8 @@ namespace ToothAndTailReplayHelper.ViewModel
 
         public ICommand OpenReplayFolderCommand { get; }
 
+        public ICommand OpenDateFormatHelpCommand { get; }
+
         public bool IsValid
         {
             get => true;
@@ -57,13 +59,14 @@ namespace ToothAndTailReplayHelper.ViewModel
         private string fileNamingPattern;
         private string playerUsername;
 
-        public SettingsWindow(ISettings settings, IOpenReplayFolderCommand openReplayFolderCommand)
+        public SettingsWindow(ISettings settings, IOpenReplayFolderCommand openReplayFolderCommand, IOpenDateFormatHelpCommand openDateFormatHelpCommand)
         {
             this.settings = settings;
 
             SaveCommand = new Command.Command(_ => IsValid, _ => Save());
             CancelCommand = new Command.Command(_ => true, _ => Cancel());
             OpenReplayFolderCommand = openReplayFolderCommand;
+            OpenDateFormatHelpCommand = openDateFormatHelpCommand;
 
             LoadPropertiesFromSettings();
         }
