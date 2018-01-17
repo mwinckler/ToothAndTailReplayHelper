@@ -6,8 +6,10 @@ namespace ToothAndTailReplayHelper.Model
 {
     internal sealed class FilenameTokenParser : IFilenameTokenParser
     {
-        private const string PlayerTokenIdentifier = "Players";
-        private const string DateTokenIdentifier   = "Date:";
+        private const string PlayerTokenIdentifier   = "Players";
+        private const string DateTokenIdentifier     = "Date:";
+        private const string DurationTokenIdentifier = "Duration";
+        private const string VersionTokenIdentifier  = "Version";
 
         public List<Tuple<FilenameToken, string>> ParseTokens(string fileNamingPattern)
         {
@@ -32,6 +34,14 @@ namespace ToothAndTailReplayHelper.Model
                 else if (strippedValue.StartsWith(DateTokenIdentifier))
                 {
                     tokens.Add(Tuple.Create(FilenameToken.DateTime, strippedValue.Substring(DateTokenIdentifier.Length)));
+                }
+                else if (strippedValue.Equals(DurationTokenIdentifier, StringComparison.OrdinalIgnoreCase))
+                {
+                    tokens.Add(Tuple.Create(FilenameToken.Duration, string.Empty));
+                }
+                else if (strippedValue.Equals(VersionTokenIdentifier, StringComparison.OrdinalIgnoreCase))
+                {
+                    tokens.Add(Tuple.Create(FilenameToken.Version, string.Empty));
                 }
                 else
                 {
