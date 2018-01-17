@@ -4,6 +4,8 @@
     {
         StringLiteral,
         DateTime,
-        PlayerNames
+        PlayerNames,
+        Duration,
+        Version
     }
 }

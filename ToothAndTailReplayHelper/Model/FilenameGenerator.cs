@@ -10,6 +10,8 @@ namespace ToothAndTailReplayHelper.Model
     {
         private const string PlayerIdentityNodeName  = "Identity";
         private const string PlayerNameAttributeName = "Name";
+        private const string DurationNodeName        = "MatchTime";
+        private const string VersionNodeName         = "VersionHash";
 
         ISettings settings;
         IFilenameTokenParser filenameTokenParser;
@@ -38,6 +40,9 @@ namespace ToothAndTailReplayHelper.Model
                     .OrderBy(playerName => string.Compare(settings.PlayerUsername, playerName, true))
             );
 
+            float.TryParse(replayXml.Descendants(DurationNodeName).Select(node => node.Value).FirstOrDefault() ?? string.Empty, out float durationSeconds);
+            var versionValue = replayXml.Descendants(VersionNodeName).Select(node => node.Value).FirstOrDefault() ?? string.Empty;
+
             var filenameTokens = filenameTokenParser.ParseTokens(settings.FileNamingPattern);
             var filenameBuilder = new StringBuilder();
 
@@ -57,6 +62,14 @@ namespace ToothAndTailReplayHelper.Model
                         filenameBuilder.Append(playerNamesValue);
                         continue;
 
+                    case FilenameToken.Duration:
+                        filenameBuilder.Append(SecondsToHumanReadableTime(durationSeconds));
+                        continue;
+
+                    case FilenameToken.Version:
+                        filenameBuilder.Append(versionValue);
+                        continue;
+
                     default:
                         throw new ArgumentOutOfRangeException($"Unknown filename token: {token.Item1}");
                 }
@@ -70,6 +83,14 @@ namespace ToothAndTailReplayHelper.Model
             }
 
             return $"{filename}.xml";
+        }
+
+        private string SecondsToHumanReadableTime(float seconds)
+        {
+            var minutesPart = (int)Math.Floor(seconds / 60);
+            var secondsPart = (int)seconds % 60;
+
+            return $"{minutesPart}m{secondsPart}s";
         }
     }
 }
