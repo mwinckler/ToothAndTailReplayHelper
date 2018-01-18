@@ -75,6 +75,7 @@
     <Compile Include="Command\OpenReplayFolderCommand.cs" />
     <Compile Include="Command\OpenSettingsCommand.cs" />
     <Compile Include="Helper\ReplaySaver.cs" />
+    <Compile Include="Model\FileBasedSettings.cs" />
     <Compile Include="Model\FilenameGenerator.cs" />
     <Compile Include="Model\FilenameToken.cs" />
     <Compile Include="Model\FilenameTokenParser.cs" />
@@ -83,9 +84,9 @@
     <Compile Include="Model\IFilenameTokenParser.cs" />
     <Compile Include="Command\IOpenSettingsCommand.cs" />
     <Compile Include="Model\ISettings.cs" />
+    <Compile Include="Model\Settings.cs" />
     <Compile Include="ViewModel\ISettingsWindow.cs" />
     <Compile Include="Model\Module.cs" />
-    <Compile Include="Model\Settings.cs" />
     <Compile Include="ViewModel\NotifyIconViewModel.cs" />
     <Compile Include="ViewModel\SettingsWindow.cs" />
     <Compile Include="View\ITrayNotifier.cs" />
@@ -141,6 +142,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\TrayIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LastReplay.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
