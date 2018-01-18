@@ -18,10 +18,10 @@ namespace ToothAndTailReplayHelper.Model
             builder.RegisterType<ExitApplicationCommand>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<OpenSettingsCommand>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<OpenReplayFolderCommand>().AsImplementedInterfaces().SingleInstance();
-            builder.RegisterType<OpenDateFormatHelpCommand>().AsImplementedInterfaces().SingleInstance();
+            builder.RegisterType<OpenFilenamePatternHelpCommand>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<SettingsWindow>().SingleInstance();
 
-            builder.RegisterType<Settings>().AsImplementedInterfaces().SingleInstance().OnActivating(args =>
+            builder.RegisterType<FileBasedSettings>().AsImplementedInterfaces().SingleInstance().OnActivating(args =>
             {
                 args.Instance.Initialize();
             });

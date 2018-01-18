@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
 using ToothAndTailReplayHelper.ViewModel;
 
 namespace ToothAndTailReplayHelper.View
@@ -23,6 +24,12 @@ namespace ToothAndTailReplayHelper.View
 
             e.Cancel = true;
             settingsWindow.Cancel();
+        }
+
+        private void FileNamingPatternKeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            ((Control)sender).GetBindingExpression(TextBox.TextProperty).UpdateSource();
+            settingsWindow.UpdateSampleFilename();
         }
     }
 }

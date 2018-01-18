@@ -22,8 +22,10 @@ namespace ToothAndTailReplayHelper.Model
             this.filenameTokenParser = filenameTokenParser;
         }
 
-        public string GenerateFilename(FileInfo replayFile)
+        public string GenerateFilename(FileInfo replayFile, ISettings settingsOverride = null)
         {
+            settingsOverride = settingsOverride ?? settings;
+
             if (!replayFile.Exists)
             {
                 return null;
@@ -37,13 +39,13 @@ namespace ToothAndTailReplayHelper.Model
                 " vs ",
                 replayXml.Descendants(PlayerIdentityNodeName)
                     .Select(node => node.Attribute(PlayerNameAttributeName).Value)
-                    .OrderBy(playerName => string.Compare(settings.PlayerUsername, playerName, true))
+                    .OrderBy(playerName => string.Compare(settingsOverride.PlayerUsername, playerName, true))
             );
 
             float.TryParse(replayXml.Descendants(DurationNodeName).Select(node => node.Value).FirstOrDefault() ?? string.Empty, out float durationSeconds);
             var versionValue = replayXml.Descendants(VersionNodeName).Select(node => node.Value).FirstOrDefault() ?? string.Empty;
 
-            var filenameTokens = filenameTokenParser.ParseTokens(settings.FileNamingPattern);
+            var filenameTokens = filenameTokenParser.ParseTokens(settingsOverride.FileNamingPattern);
             var filenameBuilder = new StringBuilder();
 
             foreach (var token in filenameTokens)

@@ -3,9 +3,9 @@ using System.Diagnostics;
 
 namespace ToothAndTailReplayHelper.Command
 {
-    internal sealed class OpenDateFormatHelpCommand : IOpenDateFormatHelpCommand
+    internal sealed class OpenFilenamePatternHelpCommand : IOpenFilenamePatternHelpCommand
     {
-        private const string HelpUri = @"https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings";
+        private const string HelpUri = @"https://github.com/mwinckler/ToothAndTailReplayHelper/blob/master/README.md";
 
         public event EventHandler CanExecuteChanged;
 

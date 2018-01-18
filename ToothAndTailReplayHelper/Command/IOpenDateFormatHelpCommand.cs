@@ -2,7 +2,7 @@
 
 namespace ToothAndTailReplayHelper.Command
 {
-    internal interface IOpenDateFormatHelpCommand : ICommand
+    internal interface IOpenFilenamePatternHelpCommand : ICommand
     {
     }
 }
