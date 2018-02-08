@@ -2,6 +2,7 @@
 using Hardcodet.Wpf.TaskbarNotification;
 using System.Windows.Controls;
 using ToothAndTailReplayHelper.Command;
+using ToothAndTailReplayHelper.Helper;
 using ToothAndTailReplayHelper.Internal;
 using ToothAndTailReplayHelper.View;
 
@@ -20,6 +21,7 @@ namespace ToothAndTailReplayHelper.Model
             builder.RegisterType<OpenReplayFolderCommand>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<OpenFilenamePatternHelpCommand>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<SettingsWindow>().SingleInstance();
+            builder.RegisterType<Updater>().SingleInstance().OnActivated(async args => await args.Instance.UpdateAsync().ConfigureAwait(false));
 
             builder.RegisterType<FileBasedSettings>().AsImplementedInterfaces().SingleInstance().OnActivating(args =>
             {
