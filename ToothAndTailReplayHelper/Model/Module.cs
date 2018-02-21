@@ -20,6 +20,8 @@ namespace ToothAndTailReplayHelper.Model
             builder.RegisterType<OpenReplayFolderCommand>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<OpenFilenamePatternHelpCommand>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<SettingsWindow>().SingleInstance();
+            builder.RegisterType<TrayNotifier>().AsImplementedInterfaces().SingleInstance();
+
             builder.RegisterType<Updater>().SingleInstance().OnActivated(async args => await args.Instance.UpdateAsync().ConfigureAwait(false));
 
             builder.RegisterType<FileBasedSettings>().AsImplementedInterfaces().SingleInstance().OnActivating(args =>
@@ -45,6 +47,12 @@ namespace ToothAndTailReplayHelper.Model
 
                 args.Instance.Items.Add(new MenuItem
                 {
+                    Header = Properties.Resources.OpenReplayFolder,
+                    Command = args.Context.Resolve<IOpenReplayFolderCommand>()
+                });
+
+                args.Instance.Items.Add(new MenuItem
+                {
                     Header = Properties.Resources.Quit,
                     Command = args.Context.Resolve<IExitApplicationCommand>()
                 });
@@ -52,7 +60,6 @@ namespace ToothAndTailReplayHelper.Model
 
             builder.RegisterType<FilenameGenerator>().AsImplementedInterfaces();
             builder.RegisterType<FilenameTokenParser>().AsImplementedInterfaces();
-            builder.RegisterType<TrayNotifier>().AsImplementedInterfaces();
 
             builder.RegisterType<TaskbarIcon>().OnActivated(args =>
             {

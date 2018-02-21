@@ -88,6 +88,15 @@ namespace ToothAndTailReplayHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open replay folder.
+        /// </summary>
+        public static string OpenReplayFolder {
+            get {
+                return ResourceManager.GetString("OpenReplayFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quit.
         /// </summary>
         public static string Quit {
