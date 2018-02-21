@@ -110,6 +110,7 @@
     <Compile Include="Helper\IReplaySaver.cs" />
     <Compile Include="Helper\ReplaySaver.cs" />
     <Compile Include="Helper\Updater.cs" />
+    <Compile Include="Model\Constants.cs" />
     <Compile Include="Model\FileBasedSettings.cs" />
     <Compile Include="Model\FilenameGenerator.cs" />
     <Compile Include="Model\FilenameToken.cs" />
@@ -118,7 +119,11 @@
     <Compile Include="Model\IFilenameGenerator.cs" />
     <Compile Include="Model\IFilenameTokenParser.cs" />
     <Compile Include="Command\IOpenSettingsCommand.cs" />
+    <Compile Include="Model\IReplayArchiver.cs" />
+    <Compile Include="Model\IReplayParser.cs" />
     <Compile Include="Model\ISettings.cs" />
+    <Compile Include="Model\ReplayArchiver.cs" />
+    <Compile Include="Model\ReplayParser.cs" />
     <Compile Include="Model\Settings.cs" />
     <Compile Include="ViewModel\ISettingsWindow.cs" />
     <Compile Include="Model\Module.cs" />

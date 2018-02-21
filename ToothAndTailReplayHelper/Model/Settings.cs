@@ -1,4 +1,6 @@
-﻿namespace ToothAndTailReplayHelper.Model
+﻿using System;
+
+namespace ToothAndTailReplayHelper.Model
 {
     internal abstract class Settings : ISettings
     {
@@ -7,6 +9,8 @@
         public string PlayerUsername { get; set; }
 
         public string ReplayDirectoryPath { get; set; }
+
+        public bool AutoArchiveOldReplays { get; set; }
 
         public abstract void Persist();
     }

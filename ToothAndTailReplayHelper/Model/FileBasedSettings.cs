@@ -29,6 +29,7 @@ namespace ToothAndTailReplayHelper.Model
             FileNamingPattern = persistedSettings.FileNamingPattern;
             PlayerUsername = persistedSettings.PlayerUsername;
             ReplayDirectoryPath = persistedSettings.ReplayDirectoryPath;
+            AutoArchiveOldReplays = persistedSettings.AutoArchiveOldReplays;
         }
     }
 }

@@ -11,15 +11,16 @@ namespace ToothAndTailReplayHelper.Model
         private const string PlayerIdentityNodeName  = "Identity";
         private const string PlayerNameAttributeName = "Name";
         private const string DurationNodeName        = "MatchTime";
-        private const string VersionNodeName         = "VersionHash";
 
-        ISettings settings;
-        IFilenameTokenParser filenameTokenParser;
+        private readonly ISettings settings;
+        private readonly IFilenameTokenParser filenameTokenParser;
+        private readonly IReplayParser replayParser;
 
-        public FilenameGenerator(ISettings settings, IFilenameTokenParser filenameTokenParser)
+        public FilenameGenerator(ISettings settings, IFilenameTokenParser filenameTokenParser, IReplayParser replayParser)
         {
             this.settings = settings;
             this.filenameTokenParser = filenameTokenParser;
+            this.replayParser = replayParser;
         }
 
         public string GenerateFilename(FileInfo replayFile, ISettings settingsOverride = null)
@@ -31,7 +32,8 @@ namespace ToothAndTailReplayHelper.Model
                 return null;
             }
 
-            var replayXml = XDocument.Load(replayFile.FullName);
+            var replayContents = File.ReadAllText(replayFile.FullName);
+            var replayXml = XDocument.Parse(replayContents);
 
             var dateValue = DateTime.Now;
 
@@ -43,7 +45,7 @@ namespace ToothAndTailReplayHelper.Model
             );
 
             float.TryParse(replayXml.Descendants(DurationNodeName).Select(node => node.Value).FirstOrDefault() ?? string.Empty, out float durationSeconds);
-            var versionValue = replayXml.Descendants(VersionNodeName).Select(node => node.Value).FirstOrDefault() ?? string.Empty;
+            var versionValue = replayParser.GetVersion(replayFile.FullName);
 
             var filenameTokens = filenameTokenParser.ParseTokens(settingsOverride.FileNamingPattern);
             var filenameBuilder = new StringBuilder();

@@ -19,6 +19,8 @@ namespace ToothAndTailReplayHelper.Model
             builder.RegisterType<OpenSettingsCommand>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<OpenReplayFolderCommand>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<OpenFilenamePatternHelpCommand>().AsImplementedInterfaces().SingleInstance();
+            builder.RegisterType<ReplayArchiver>().AsImplementedInterfaces().SingleInstance();
+            builder.RegisterType<ReplayParser>().AsImplementedInterfaces().SingleInstance();
             builder.RegisterType<SettingsWindow>().SingleInstance();
             builder.RegisterType<TrayNotifier>().AsImplementedInterfaces().SingleInstance();
 

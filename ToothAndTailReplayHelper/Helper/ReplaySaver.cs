@@ -11,8 +11,6 @@ namespace ToothAndTailReplayHelper.Helper
 {
     internal sealed class ReplaySaver : IReplaySaver
     {
-        private const string FileFilter = "LastReplay.xml";
-
         public event EventHandler<string> ReplaySaved;
 
         IFilenameGenerator filenameGenerator;
@@ -24,7 +22,7 @@ namespace ToothAndTailReplayHelper.Helper
         {
             this.filenameGenerator = filenameGenerator;
 
-            fileSystemWatcher = new FileSystemWatcher(settings.ReplayDirectoryPath, FileFilter);
+            fileSystemWatcher = new FileSystemWatcher(settings.ReplayDirectoryPath, Constants.LastReplayFileName);
             fileSystemWatcher.Changed += FileModified;
             fileSystemWatcher.EnableRaisingEvents = true;
         }
