@@ -121,13 +121,13 @@
     <Compile Include="Model\Settings.cs" />
     <Compile Include="ViewModel\ISettingsWindow.cs" />
     <Compile Include="Model\Module.cs" />
+    <Compile Include="ViewModel\ITrayNotifier.cs" />
     <Compile Include="ViewModel\NotifyIconViewModel.cs" />
     <Compile Include="ViewModel\SettingsWindow.cs" />
-    <Compile Include="View\ITrayNotifier.cs" />
+    <Compile Include="ViewModel\TrayNotifier.cs" />
     <Compile Include="View\SettingsWindow.xaml.cs">
       <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\TrayNotifier.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
