@@ -5,6 +5,7 @@
         string ReplayDirectoryPath { get; set; }
         string FileNamingPattern { get; set; }
         string PlayerUsername { get; set; }
+        bool AutoArchiveOldReplays { get; set; }
 
         void Persist();
     }

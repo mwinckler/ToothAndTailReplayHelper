@@ -54,6 +54,16 @@ namespace ToothAndTailReplayHelper.ViewModel
             }
         }
 
+        public bool AutoArchiveOldReplays
+        {
+            get => autoArchiveOldReplays;
+            set
+            {
+                autoArchiveOldReplays = value;
+                OnPropertyChanged(nameof(AutoArchiveOldReplays));
+            }
+        }
+
         public ICommand SaveCommand { get; }
 
         public ICommand CancelCommand { get; }
@@ -72,6 +82,7 @@ namespace ToothAndTailReplayHelper.ViewModel
         private string fileNamingPattern;
         private string playerUsername;
         private string sampleFilename;
+        private bool autoArchiveOldReplays;
 
         private readonly IFilenameGenerator filenameGenerator;
 
@@ -117,6 +128,7 @@ namespace ToothAndTailReplayHelper.ViewModel
             settings.ReplayDirectoryPath = ReplayDirectoryPath;
             settings.FileNamingPattern = FileNamingPattern;
             settings.PlayerUsername = PlayerUsername;
+            settings.AutoArchiveOldReplays = AutoArchiveOldReplays;
             settings.Persist();
             Hide();
         }
@@ -133,6 +145,7 @@ namespace ToothAndTailReplayHelper.ViewModel
             ReplayDirectoryPath = settings.ReplayDirectoryPath;
             FileNamingPattern = settings.FileNamingPattern;
             PlayerUsername = settings.PlayerUsername;
+            AutoArchiveOldReplays = settings.AutoArchiveOldReplays;
         }
 
         private void OnPropertyChanged(string propertyName)

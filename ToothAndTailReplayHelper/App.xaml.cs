@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Windows;
 using ToothAndTailReplayHelper.Helper;
+using ToothAndTailReplayHelper.Model;
 using ToothAndTailReplayHelper.View;
 
 namespace ToothAndTailReplayHelper
@@ -25,7 +26,11 @@ namespace ToothAndTailReplayHelper
 
             var trayNotifier = container.Resolve<ITrayNotifier>();
 
-            container.Resolve<IReplaySaver>().ReplaySaved += (_, filename) =>trayNotifier.Notify(ToothAndTailReplayHelper.Properties.Resources.ReplaySaved, filename);
+            container.Resolve<IReplaySaver>().ReplaySaved += (_, filename) =>
+            {
+                trayNotifier.Notify(ToothAndTailReplayHelper.Properties.Resources.ReplaySaved, filename);
+                container.Resolve<IReplayArchiver>().ArchiveOldReplays();
+            };
 
             trayNotifier.Notify(ToothAndTailReplayHelper.Properties.Resources.ListeningForReplays);
         }
