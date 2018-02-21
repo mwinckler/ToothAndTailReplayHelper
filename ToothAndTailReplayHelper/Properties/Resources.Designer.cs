@@ -97,6 +97,15 @@ namespace ToothAndTailReplayHelper.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Replay saved!.
+        /// </summary>
+        public static string ReplaySaved {
+            get {
+                return ResourceManager.GetString("ReplaySaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string Save {

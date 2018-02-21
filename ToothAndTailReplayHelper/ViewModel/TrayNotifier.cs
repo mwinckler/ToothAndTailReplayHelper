@@ -19,8 +19,13 @@ namespace ToothAndTailReplayHelper.View
 
         public void Notify(string message)
         {
+            Notify(Properties.Resources.ApplicationTitle, message);
+        }
+
+        public void Notify(string title, string message)
+        {
             taskbarIcon.ShowBalloonTip(
-                Properties.Resources.ApplicationTitle,
+                title,
                 message,
                 BalloonIcon.None
             );

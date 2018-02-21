@@ -3,7 +3,6 @@ using Hardcodet.Wpf.TaskbarNotification;
 using System.Windows.Controls;
 using ToothAndTailReplayHelper.Command;
 using ToothAndTailReplayHelper.Helper;
-using ToothAndTailReplayHelper.Internal;
 using ToothAndTailReplayHelper.View;
 
 namespace ToothAndTailReplayHelper.Model
