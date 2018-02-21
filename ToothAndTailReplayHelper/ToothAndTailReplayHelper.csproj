@@ -107,6 +107,7 @@
     <Compile Include="Command\OpenDateFormatHelpCommand.cs" />
     <Compile Include="Command\OpenReplayFolderCommand.cs" />
     <Compile Include="Command\OpenSettingsCommand.cs" />
+    <Compile Include="Helper\IReplaySaver.cs" />
     <Compile Include="Helper\ReplaySaver.cs" />
     <Compile Include="Helper\Updater.cs" />
     <Compile Include="Model\FileBasedSettings.cs" />

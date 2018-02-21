@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Windows;
+using ToothAndTailReplayHelper.Helper;
 using ToothAndTailReplayHelper.View;
 
 namespace ToothAndTailReplayHelper
@@ -22,7 +23,11 @@ namespace ToothAndTailReplayHelper
             builder.RegisterModule(new Model.Module());
             container = builder.Build();
 
-            container.Resolve<ITrayNotifier>().Notify(ToothAndTailReplayHelper.Properties.Resources.ListeningForReplays);
+            var trayNotifier = container.Resolve<ITrayNotifier>();
+
+            container.Resolve<IReplaySaver>().ReplaySaved += (_, filename) =>trayNotifier.Notify(ToothAndTailReplayHelper.Properties.Resources.ReplaySaved, filename);
+
+            trayNotifier.Notify(ToothAndTailReplayHelper.Properties.Resources.ListeningForReplays);
         }
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

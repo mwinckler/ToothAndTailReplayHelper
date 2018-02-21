@@ -139,4 +139,7 @@
   <data name="Cancel">
     <value>Cancel</value>
   </data>
+  <data name="ReplaySaved">
+    <value>Replay saved!</value>
+  </data>
 </root>
