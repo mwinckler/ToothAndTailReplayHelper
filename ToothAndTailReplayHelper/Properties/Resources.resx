@@ -142,4 +142,7 @@
   <data name="ReplaySaved">
     <value>Replay saved!</value>
   </data>
+  <data name="OpenReplayFolder">
+    <value>Open replay folder</value>
+  </data>
 </root>
