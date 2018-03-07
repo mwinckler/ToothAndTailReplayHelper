@@ -1,5 +1,6 @@
 ﻿using Squirrel;
 using System;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace ToothAndTailReplayHelper.Helper
@@ -10,9 +11,19 @@ namespace ToothAndTailReplayHelper.Helper
 
         internal async Task UpdateAsync()
         {
-            using (var updateManager = new UpdateManager(UpdateUri))
+            try
             {
-                await updateManager.UpdateApp().ConfigureAwait(false);
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+                using (var updateManager = await UpdateManager.GitHubUpdateManager(UpdateUri).ConfigureAwait(false))
+                {
+                    await updateManager.UpdateApp().ConfigureAwait(false);
+                }
+            }
+            catch (Exception)
+            {
+                // Suppress.
             }
         }
     }

@@ -24,7 +24,7 @@ namespace ToothAndTailReplayHelper.Model
             builder.RegisterType<SettingsWindow>().SingleInstance();
             builder.RegisterType<TrayNotifier>().AsImplementedInterfaces().SingleInstance();
 
-            builder.RegisterType<Updater>().SingleInstance().OnActivated(async args => await args.Instance.UpdateAsync().ConfigureAwait(false));
+            builder.RegisterType<Updater>().SingleInstance().AutoActivate().OnActivated(async args => await args.Instance.UpdateAsync().ConfigureAwait(false));
 
             builder.RegisterType<FileBasedSettings>().AsImplementedInterfaces().SingleInstance().OnActivating(args =>
             {
