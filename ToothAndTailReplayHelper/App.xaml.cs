@@ -24,15 +24,7 @@ namespace ToothAndTailReplayHelper
             builder.RegisterModule(new Model.Module());
             container = builder.Build();
 
-            var trayNotifier = container.Resolve<ITrayNotifier>();
-
-            container.Resolve<IReplaySaver>().ReplaySaved += (_, filename) =>
-            {
-                trayNotifier.Notify(ToothAndTailReplayHelper.Properties.Resources.ReplaySaved, filename);
-                container.Resolve<IReplayArchiver>().ArchiveOldReplays();
-            };
-
-            trayNotifier.Notify(ToothAndTailReplayHelper.Properties.Resources.ListeningForReplays);
+            container.Resolve<IApp>().Run();
         }
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
